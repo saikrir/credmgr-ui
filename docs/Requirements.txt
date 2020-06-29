@@ -1,0 +1,123 @@
+Model:
+
+
+Crednetial System
+
+
+App_User
++--------+----------+-------------------+-----------+----+--------+
+| UserId | Password |     FullName      | LastLogin | Id | active |
++--------+----------+-------------------+-----------+----+--------+
+| skrao  | pass     | Sai Katterishetty | now       |  1 | true   |
+| jaya   | pass     | Jaya Seyyadri     | now       |  2 | true   |
++--------+----------+-------------------+-----------+----+--------+
+
+
+App_Credential
++-----------+----------------+----------+-------------------+-----+--------------+--------------+
+| System_Nm |    User_Id     | Password |    Description    | Id  | last_updated |  Cred_Owner  |
++-----------+----------------+----------+-------------------+-----+--------------+--------------+
+| Google    | rao.saikrishna | jaya     | Google AuthSystem |  1  | now          |            1 |
++-----------+----------------+----------+-------------------+-----+--------------+--------------+
+
+
+Users:
+GET /v1/credentailManagent/Users/{id}
+
+Response:
+    {
+      id: "1",
+      user_id: "skrao",
+      full_name: "Sai Katterishetty",
+      last_login: "2020-06-28T20:52"
+    }
+
+Auth:
+POST /v1/credentailManagent/auth
+  {
+    userId: "skrao",
+    password: "XXXX"
+  }
+
+Response: 201
+
+GET /v1/credentailManagent/{user_id}/credentials
+response:
+{
+  credentials: [
+    {
+      id: 1,
+      system_nm: "Google",
+      user_id: "rao.saikrishna",
+      password: "xxxx",
+      description: "Google AuthSystem",
+      last_updated: "2020-06-28T20:52"
+    },
+    {
+      id: 1,
+      system_nm: "Google",
+      user_id: "rao.saikrishna",
+      password: "xxxx",
+      description: "Google AuthSystem",
+      last_updated: "2020-06-28T20:52"
+    }
+  ]
+}
+
+
+GET /v1/credentailManagent/{user_id}/credentials?sysFilter="google"
+response:
+{
+  credentials: [
+    {
+      id: 1,
+      system_nm: "Google",
+      user_id: "rao.saikrishna",
+      password: "xxxx",
+      description: "Google AuthSystem",
+      last_updated: "2020-06-28T20:52"
+    },
+    {
+      id: 1,
+      system_nm: "Google",
+      user_id: "rao.saikrishna",
+      password: "xxxx",
+      description: "Google AuthSystem",
+      last_updated: "2020-06-28T20:52"
+    }
+  ]
+}
+
+GET /v1/credentailManagent/{user_id}/credentials/{id}
+response:
+    {
+      id: 1,
+      system_nm: "Google",
+      user_id: "rao.saikrishna",
+      password: "xxxx",
+      description: "Google AuthSystem",
+      last_updated: "2020-06-28T20:52"
+    }
+
+
+
+POST /v1/credentailManagent/{user_id}/credentials
+{
+system_nm: "Google",
+user_id: "rao.saikrishna",
+password: "xxxx",
+description: "Google AuthSystem",
+}
+
+Response: 201
+
+PATCH /v1/credentailManagent/{user_id}/credentials/{id}
+{
+system_nm: "Google",
+user_id: "rao.saikrishna",
+password: "xxxx",
+description: "Google AuthSystem",
+}
+
+
+DELETE /v1/credentailManagent/{user_id}/credentials/{id}
