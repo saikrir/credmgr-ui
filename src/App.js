@@ -1,10 +1,14 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">Welcome World</header>
-    </div>
+    <Container>
+      <p>
+        <header>Welcome World</header>
+      </p>
+    </Container>
   );
 }
 
