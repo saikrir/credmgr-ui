@@ -1,23 +1,28 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
 import { Provider } from 'react-redux';
-import createStore from './redux/createStore';
 import AppLogin from './components/app-login';
-import './app.css';
+import AppSearch from './components/app-search';
+import createStore from './redux/createStore';
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const store = createStore();
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
-      <div>
-        <Container text>
-          <AppLogin />
-        </Container>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/'>
+            <AppLogin />
+          </Route>
+          <Route path='/search'>
+            <AppSearch />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </Provider>
   );
-}
+};
 
 export default App;
