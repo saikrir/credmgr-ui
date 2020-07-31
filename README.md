@@ -1,5 +1,9 @@
 # credmgr
 
+Theme:
+
+GruvBox Material Light
+
 Credentials Management UI
 
 VSCode Settings:
@@ -17,7 +21,11 @@ VSCode Settings:
 "prettier.withNodeModules": true
 
 applicationState: {
+auth: {
 loggedInUser: "",
+authenticated: false
+}
+
 search:{
 "searchTerm": "",
 "results": []

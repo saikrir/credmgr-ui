@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import AppLogin from './components/app-login';
+import LoginForm from './containers/login-container';
 import AppSearch from './components/app-search';
 import createStore from './redux/createStore';
 
@@ -13,10 +13,10 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/'>
-            <AppLogin />
+          <Route exact path="/">
+            <LoginForm />
           </Route>
-          <Route path='/search'>
+          <Route path="/search">
             <AppSearch />
           </Route>
         </Switch>
