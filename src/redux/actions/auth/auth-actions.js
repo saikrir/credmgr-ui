@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API, ENDPOINTS } from '../../../utils/app-constants';
+import { API, ENDPOINTS, ACTIONS } from '../../../utils/app-constants';
 
 const authenticate = (userName, password) => {
   return dispatch => {
@@ -11,9 +11,20 @@ const authenticate = (userName, password) => {
     axios
       .post(authEndpoint, requestBody)
       .then(response => {
-        console.log(response);
+        console.log(response.data.authToken);
+        dispatch({
+          type: ACTIONS.AUTHENTICATION_SUCCESSFUL,
+          payload: {
+            user: userName
+          }
+        });
       })
-      .catch(err => {});
+      .catch(err => {
+        dispatch({
+          type: ACTIONS.AUTHENTICATION_FAILED,
+          payload: { error: err.message }
+        });
+      });
   };
 };
 

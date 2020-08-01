@@ -1,5 +1,5 @@
 export const API = {
-  HOST: 'http://skrao-app-server:9000',
+  HOST: 'http://localhost:8080',
   CONTEXT_PATH: '/v1/credmgr-api'
 };
 
@@ -8,5 +8,6 @@ export const ENDPOINTS = {
 };
 
 export const ACTIONS = {
-  AUTHENTICATE: 'doAuth'
+  AUTHENTICATION_SUCCESSFUL: 'AuthSuccess',
+  AUTHENTICATION_FAILED: 'AuthFailed'
 };

@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import '../app.css';
 import 'semantic-ui-css/semantic.min.css';
 
-const LoginForm = ({ handleSubmit, auth, doAuth }) => {
+const LoginForm = ({ handleSubmit, authError, authenticated, doAuth }) => {
   let handleAuth = values => {
     let { username, password } = values;
     doAuth(username, password);
@@ -16,6 +16,11 @@ const LoginForm = ({ handleSubmit, auth, doAuth }) => {
         <p>Please login into Credential Management System</p>
       </Message>
       <Divider />
+      {authError && !authenticated && (
+        <Message error>
+          <p>{authError}</p>
+        </Message>
+      )}
       <Form onSubmit={handleSubmit(handleAuth)}>
         <Form.Group widths="equal">
           <Field component={Form.Input} label="User: " name="username" placeholder="User " />
