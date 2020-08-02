@@ -1,14 +1,20 @@
 import React from 'react';
 import { Message, Form, Container, Divider } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import '../app.css';
 import 'semantic-ui-css/semantic.min.css';
 
-const LoginForm = ({ handleSubmit, authError, authenticated, doAuth }) => {
+const LoginForm = ({ handleSubmit, doAuth, authError, authenticated }) => {
+  let history = useHistory();
   let handleAuth = values => {
     let { username, password } = values;
     doAuth(username, password);
   };
+
+  if (authenticated) {
+    history.push('/search');
+  }
 
   return (
     <Container>
@@ -28,7 +34,6 @@ const LoginForm = ({ handleSubmit, authError, authenticated, doAuth }) => {
         </Form.Group>
         <Form.Group inline>
           <Form.Button primary>Submit</Form.Button>
-          <Form.Button>Reset</Form.Button>
         </Form.Group>
       </Form>
     </Container>

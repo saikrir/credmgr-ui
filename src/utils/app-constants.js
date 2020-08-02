@@ -1,5 +1,5 @@
 export const API = {
-  HOST: 'http://localhost:8080',
+  HOST: 'http://skrao-app-server:9000',
   CONTEXT_PATH: '/v1/credmgr-api'
 };
 

@@ -17,7 +17,6 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     }
     case ACTIONS.AUTHENTICATION_FAILED: {
       let { error } = action.payload;
-      console.log('ERR -> ', error);
       if (error && error !== '') {
         state = { loggedInUser: '', authenticated: false, authError: error };
       }
