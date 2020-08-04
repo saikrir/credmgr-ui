@@ -1,7 +1,7 @@
 import React from 'react';
-import { Message, Form, Container, Divider } from 'semantic-ui-react';
+import { Message, Form, Container, Divider, Segment } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
-import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../app.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -13,27 +13,36 @@ const LoginForm = ({ handleSubmit, doAuth, authError, authenticated }) => {
   };
 
   if (authenticated) {
-    history.push('/search');
+    history.push('/private-home');
   }
 
   return (
     <Container>
-      <Message>
+      <Segment inverted textAlign="center" size="large" color="teal">
         <p>Please login into Credential Management System</p>
-      </Message>
+      </Segment>
       <Divider />
-      {authError && !authenticated && (
+      {authError && (
         <Message error>
           <p>{authError}</p>
         </Message>
       )}
       <Form onSubmit={handleSubmit(handleAuth)}>
         <Form.Group widths="equal">
-          <Field component={Form.Input} label="User: " name="username" placeholder="User " />
-          <Field component={Form.Input} type="password" label="Password: " name="password" placeholder="Password " />
+          <Field component={Form.Input} label="User: " name="username" placeholder="User " required />
+          <Field
+            component={Form.Input}
+            type="password"
+            label="Password: "
+            name="password"
+            placeholder="Password "
+            required
+          />
         </Form.Group>
         <Form.Group inline>
-          <Form.Button primary>Submit</Form.Button>
+          <Form.Button primary size="large" color="google plus">
+            Submit
+          </Form.Button>
         </Form.Group>
       </Form>
     </Container>
@@ -41,5 +50,9 @@ const LoginForm = ({ handleSubmit, doAuth, authError, authenticated }) => {
 };
 
 export default reduxForm({
-  form: 'loginForm'
+  form: 'loginForm',
+  initialValues: {
+    username: '',
+    password: ''
+  }
 })(LoginForm);
