@@ -22,7 +22,10 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
       }
       break;
     }
-
+    case ACTIONS.USER_LOGOUT: {
+      state = INITIAL_STATE;
+      break;
+    }
     default:
       break;
   }

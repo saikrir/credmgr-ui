@@ -4,10 +4,12 @@ export const API = {
 };
 
 export const ENDPOINTS = {
-  AUTH: '/users/authenticate'
+  AUTH: '/users/authenticate',
+  VALIDATE_TOKEN: '/users/token/{token}/validate'
 };
 
 export const ACTIONS = {
   AUTHENTICATION_SUCCESSFUL: 'AuthSuccess',
-  AUTHENTICATION_FAILED: 'AuthFailed'
+  AUTHENTICATION_FAILED: 'AuthFailed',
+  USER_LOGOUT: 'Logout'
 };
