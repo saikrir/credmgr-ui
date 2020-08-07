@@ -5,11 +5,14 @@ export const API = {
 
 export const ENDPOINTS = {
   AUTH: '/users/authenticate',
-  VALIDATE_TOKEN: '/users/token/{token}/validate'
+  VALIDATE_TOKEN: '/users/token/{token}/validate',
+  CREATE_SYSTEM_CREDENTIAL: '/system-credentials'
 };
 
 export const ACTIONS = {
   AUTHENTICATION_SUCCESSFUL: 'AuthSuccess',
   AUTHENTICATION_FAILED: 'AuthFailed',
-  USER_LOGOUT: 'Logout'
+  USER_LOGOUT: 'Logout',
+  SYSTEM_CREDENTIAL_CREATED: 'SystemCredentailCreated',
+  SYSTEM_CREDENTIAL_ERROR: 'SystemCredentailError'
 };

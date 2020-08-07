@@ -60,9 +60,5 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated })
 };
 
 export default reduxForm({
-  form: 'loginForm',
-  initialValues: {
-    username: '',
-    password: ''
-  }
+  form: 'loginForm'
 })(LoginForm);

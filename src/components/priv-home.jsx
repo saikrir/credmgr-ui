@@ -2,15 +2,17 @@ import React from 'react';
 import { Container, Segment } from 'semantic-ui-react';
 import AppHeader from '../containers/app-header';
 import AppMenu from '../components/app-menu';
+import SystemCredentailForm from '../containers/system-credential-form-container';
 
 const PrivateHome = () => {
   return (
     <Container fluid>
-      <Segment stacked vertical>
+      <Segment>
         <AppHeader />
         <AppMenu />
       </Segment>
-      <div>Welcome to Credential Management Application</div>
+      <Container>Welcome to Credential Management Application</Container>
+      <SystemCredentailForm />
     </Container>
   );
 };
