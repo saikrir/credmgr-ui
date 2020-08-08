@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 
 const AppMenu = () => {
+  let history = useHistory();
   let [activeItem, setActiveItem] = useState({});
 
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
+    history.push(`/${name}`);
   };
 
   return (
@@ -14,7 +17,7 @@ const AppMenu = () => {
         Search Credential
       </Menu.Item>
 
-      <Menu.Item name="add" active={activeItem === 'add'} onClick={handleItemClick}>
+      <Menu.Item name="private-home" active={activeItem === 'new'} onClick={handleItemClick}>
         Add New Credential
       </Menu.Item>
 

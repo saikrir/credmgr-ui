@@ -4,6 +4,39 @@ import axios from 'axios';
 
 export const createSystemCredential = systemCredential => {
   return dispatch => {
+    return new Promise((resolve, reject) => {
+      const jwtToken = TokenStore.getAuthToken();
+
+      if (!jwtToken) {
+        dispatch({
+          type: ACTIONS.AUTHENTICATION_FAILED
+        });
+      } else {
+        let createSystemCredentailEndpoint = `${API.HOST}${API.CONTEXT_PATH}${ENDPOINTS.SYSTEM_CREDENTIAL}`;
+
+        let axiosInstance = getAuthEnabledAxios(jwtToken, createSystemCredentailEndpoint);
+
+        axiosInstance
+          .post(createSystemCredentailEndpoint, systemCredential)
+          .then(response => {
+            dispatch({
+              type: ACTIONS.SYSTEM_CREDENTIAL_CREATED
+            });
+            resolve();
+          })
+          .catch(err => {
+            dispatch({
+              type: ACTIONS.SYSTEM_CREDENTIAL_ERROR
+            });
+            reject();
+          });
+      }
+    }); //Promise
+  };
+};
+
+export const searchCredentials = searchTerm => {
+  return dispatch => {
     const jwtToken = TokenStore.getAuthToken();
 
     if (!jwtToken) {
@@ -11,20 +44,24 @@ export const createSystemCredential = systemCredential => {
         type: ACTIONS.AUTHENTICATION_FAILED
       });
     } else {
-      let createSystemCredentailEndpoint = `${API.HOST}${API.CONTEXT_PATH}${ENDPOINTS.CREATE_SYSTEM_CREDENTIAL}`;
-
-      let axiosInstance = getAuthEnabledAxios(jwtToken, createSystemCredentailEndpoint);
-
-      axiosInstance
-        .post(createSystemCredentailEndpoint, systemCredential)
+      let searchSystemCredentailEndpoint = `${API.HOST}${API.CONTEXT_PATH}${ENDPOINTS.SYSTEM_CREDENTIAL}`;
+      let axiosIntance = getAuthEnabledAxios(jwtToken);
+      axiosIntance
+        .get(searchSystemCredentailEndpoint, {
+          params: {
+            systemName: searchTerm
+          }
+        })
         .then(response => {
+          let { data: searchResults } = response;
           dispatch({
-            type: ACTIONS.SYSTEM_CREDENTIAL_CREATED
+            type: ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS,
+            payload: searchResults
           });
         })
-        .catch(err => {
+        .catch(error => {
           dispatch({
-            type: ACTIONS.SYSTEM_CREDENTIAL_ERROR
+            type: ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS_ERROR
           });
         });
     }

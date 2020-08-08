@@ -1,5 +1,6 @@
 import React from 'react';
-import { Message, Form, Container, Segment, Card, TextArea } from 'semantic-ui-react';
+import { Message, Form, Container, Card, TextArea } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
 const TextAreaComponent = props => (
@@ -13,8 +14,10 @@ const SystemCredentailForm = ({
   saveSystemCredential,
   operationCompleted,
   systemCredentialError,
-  ...rest
+  reset
 }) => {
+  const history = useHistory();
+
   const createSystemCredential = ({ userId, password, systemName, description }) => {
     let systemCredential = {
       userId,
@@ -22,13 +25,24 @@ const SystemCredentailForm = ({
       systemName,
       description
     };
-    saveSystemCredential(systemCredential);
+    saveSystemCredential(systemCredential).then(() => {
+      reset();
+    });
+    return false;
+  };
+
+  const renderMessage = () => {
+    console.log(operationCompleted);
+    if (systemCredentialError) {
+      return <Message error>Error Occured: {systemCredentialError}</Message>;
+    } else if (operationCompleted) {
+      return <Message info>System Credential Created!</Message>;
+    }
   };
 
   return (
     <Container>
-      {!operationCompleted && <Message error>Error Occured: {systemCredentialError}</Message>}
-
+      {renderMessage()}
       <Card fluid raised color="teal">
         <Card.Content>
           <Card.Header>New System Credentail </Card.Header>
@@ -51,7 +65,7 @@ const SystemCredentailForm = ({
               <Form.Button primary size="large" color="teal" textAlign="right">
                 Create
               </Form.Button>
-              <Form.Button primary size="large" color="google plus" textAlign="right">
+              <Form.Button primary size="large" color="google plus" textAlign="right" onClick={reset}>
                 Reset
               </Form.Button>
             </Form.Group>

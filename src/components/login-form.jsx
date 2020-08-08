@@ -9,7 +9,7 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated })
   useEffect(() => {
     console.log('UseEffect Called');
     validate();
-  }, [validate]);
+  }, []);
 
   let handleAuth = values => {
     let { username, password } = values;

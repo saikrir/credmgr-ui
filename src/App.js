@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import LoginForm from './containers/login-container';
 import PrivateHome from './components/priv-home';
 import PublicHome from './components/pub-home';
+import AppSearch from './containers/app-search';
 import createStore from './redux/createStore';
 import AuthenticatedRoute from './containers/authenticated-route';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -22,6 +23,9 @@ const App = () => {
           </Route>
           <AuthenticatedRoute path="/private-home">
             <PrivateHome />
+          </AuthenticatedRoute>
+          <AuthenticatedRoute path="/search">
+            <AppSearch />
           </AuthenticatedRoute>
         </Switch>
       </BrowserRouter>

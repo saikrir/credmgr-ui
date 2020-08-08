@@ -11,7 +11,6 @@ const PrivateHome = () => {
         <AppHeader />
         <AppMenu />
       </Segment>
-      <Container>Welcome to Credential Management Application</Container>
       <SystemCredentailForm />
     </Container>
   );
