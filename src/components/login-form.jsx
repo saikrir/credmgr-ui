@@ -23,7 +23,7 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated })
 
   return (
     <Container>
-      <Segment inverted textAlign="center" size="massive" color="teal">
+      <Segment inverted textAlign="center" size="massive" color="brown">
         <p>Credential Management System</p>
       </Segment>
       {authError && (
@@ -31,7 +31,7 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated })
           <p>{authError}</p>
         </Message>
       )}
-      <Card fluid raised color="teal">
+      <Card fluid raised color="brown">
         <Card.Content>
           <Card.Header>Login</Card.Header>
           <br />
@@ -48,7 +48,7 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated })
               />
             </Form.Group>
             <Form.Group textAlign="rigth">
-              <Form.Button primary size="large" color="teal" textAlign="right">
+              <Form.Button primary size="large" color="brown" textAlign="right">
                 Login
               </Form.Button>
             </Form.Group>

@@ -11,7 +11,7 @@ const PublicHome = () => {
 
   return (
     <div>
-      <Segment size="massive" padded="very" vertical raised inverted textAlign="center" color="teal">
+      <Segment size="massive" padded="very" vertical raised inverted textAlign="center" color="brown">
         <Header as="h1"> Welcome to Credential Manager Application </Header>
       </Segment>
       <br />

@@ -1,27 +1,25 @@
 import React from 'react';
-import { Container, Segment, Message } from 'semantic-ui-react';
-import AppHeader from './app-header';
+import { Container, Message } from 'semantic-ui-react';
 import AppSearchForm from '../components/app-search-form';
-import AppMenu from '../components/app-menu';
 import { connect } from 'react-redux';
 import { searchCredentials } from '../redux/actions/systemcredentials/system-credential-actions';
 import SearchResults from '../components/search-results';
 
-const AppSearch = ({ search, systemCredentialSearches, credentailOperationSuccessful }) => {
+const AppSearch = ({ search, systemCredentialSearches, credentailOperationSuccessful, systemCredentialError }) => {
   const searchResultsOrMessage = () => {
-    if (credentailOperationSuccessful && systemCredentialSearches && systemCredentialSearches.length > 0) {
-      return <SearchResults searchResults={systemCredentialSearches} />;
-    } else {
-      return <Message error>No Search Results Found</Message>;
+    if (credentailOperationSuccessful) {
+      if (systemCredentialSearches && systemCredentialSearches.length > 0) {
+        return <SearchResults searchResults={systemCredentialSearches} />;
+      } else {
+        return <Message error>No Search Results Found</Message>;
+      }
+    } else if (systemCredentialError) {
+      return <Message error>Error occured when performing search: {systemCredentialError}</Message>;
     }
   };
 
   return (
-    <Container fluid>
-      <Segment>
-        <AppHeader />
-        <AppMenu />
-      </Segment>
+    <Container>
       <AppSearchForm searchHandler={search} />
       <br />
       <Container>{searchResultsOrMessage()}</Container>
@@ -29,8 +27,10 @@ const AppSearch = ({ search, systemCredentialSearches, credentailOperationSucces
   );
 };
 
-const mapStateToProps = ({ systemCredential: { systemCredentialSearches, credentailOperationSuccessful } }) => {
-  return { systemCredentialSearches, credentailOperationSuccessful };
+const mapStateToProps = ({
+  systemCredential: { systemCredentialSearches, credentailOperationSuccessful, systemCredentialError }
+}) => {
+  return { systemCredentialSearches, credentailOperationSuccessful, systemCredentialError };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

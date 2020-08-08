@@ -1,6 +1,6 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { Message, Form, Container, Card } from 'semantic-ui-react';
+import { Form, Container, Card } from 'semantic-ui-react';
 
 const AppSearchForm = ({ handleSubmit, searchHandler }) => {
   const systemSearch = values => {

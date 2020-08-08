@@ -14,7 +14,12 @@ const SystemCredentialReducer = (state = INITIAL_STATE, action) => {
     }
     case ACTIONS.SYSTEM_CREDENTIAL_ERROR: {
       let { payload: error } = action;
-      return { ...state, systemCredentialError: error, credentailOperationSuccessful: false };
+      return {
+        ...state,
+        systemCredentialError: error,
+        credentailOperationSuccessful: false,
+        systemCredentialSearches: []
+      };
     }
     case ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS: {
       let { payload: searchResulsts } = action;
@@ -23,6 +28,14 @@ const SystemCredentialReducer = (state = INITIAL_STATE, action) => {
         systemCredentialError: '',
         credentailOperationSuccessful: true,
         systemCredentialSearches: searchResulsts
+      };
+    }
+    case ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS_ERROR: {
+      return {
+        ...state,
+        systemCredentialError: 'Insufficient Criteria',
+        credentailOperationSuccessful: false,
+        systemCredentialSearches: []
       };
     }
     default: {

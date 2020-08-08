@@ -24,9 +24,6 @@ const App = () => {
           <AuthenticatedRoute path="/private-home">
             <PrivateHome />
           </AuthenticatedRoute>
-          <AuthenticatedRoute path="/search">
-            <AppSearch />
-          </AuthenticatedRoute>
         </Switch>
       </BrowserRouter>
     </Provider>

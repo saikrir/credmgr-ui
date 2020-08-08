@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
 const AppMenu = () => {
   let history = useHistory();
   let [activeItem, setActiveItem] = useState({});
-
+  let { url } = useRouteMatch();
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
-    history.push(`/${name}`);
+    history.push(`${url}/${name}`);
   };
 
   return (
-    <Menu color="teal" inverted size="large">
+    <Menu color="brown" inverted size="large">
       <Menu.Item name="search" active={activeItem === 'search'} onClick={handleItemClick}>
         Search Credential
       </Menu.Item>
 
-      <Menu.Item name="private-home" active={activeItem === 'new'} onClick={handleItemClick}>
+      <Menu.Item name="new" active={activeItem === 'new'} onClick={handleItemClick}>
         Add New Credential
       </Menu.Item>
 
