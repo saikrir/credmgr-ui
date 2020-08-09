@@ -14,6 +14,7 @@ export const ACTIONS = {
   AUTHENTICATION_SUCCESSFUL: 'AuthSuccess',
   AUTHENTICATION_FAILED: 'AuthFailed',
   USER_LOGOUT: 'Logout',
+  SYSTEM_CREDENTIAL_INITIALIZE: 'SystemCredentialInitialze',
   SYSTEM_CREDENTIAL_CREATED: 'SystemCredentailCreated',
   SYSTEM_CREDENTIAL_ERROR: 'SystemCredentailError',
   SYSTEM_CREDNTIAL_SEARCH_RESULTS: 'SystemCredentialSearch',

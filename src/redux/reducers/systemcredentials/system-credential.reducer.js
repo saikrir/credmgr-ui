@@ -9,6 +9,9 @@ const INITIAL_STATE = {
 const SystemCredentialReducer = (state = INITIAL_STATE, action) => {
   let { type } = action;
   switch (type) {
+    case ACTIONS.SYSTEM_CREDENTIAL_INITIALIZE: {
+      return INITIAL_STATE;
+    }
     case ACTIONS.SYSTEM_CREDENTIAL_CREATED: {
       return { ...state, credentailOperationSuccessful: true };
     }

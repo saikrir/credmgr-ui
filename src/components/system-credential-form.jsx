@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Message, Form, Container, Card, TextArea } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 
 const TextAreaComponent = props => (
@@ -14,9 +13,12 @@ const SystemCredentailForm = ({
   saveSystemCredential,
   operationCompleted,
   systemCredentialError,
-  reset
+  reset,
+  systemCredentialFormInit
 }) => {
-  const history = useHistory();
+  useEffect(() => {
+    systemCredentialFormInit();
+  }, []);
 
   const createSystemCredential = ({ userId, password, systemName, description }) => {
     let systemCredential = {
@@ -32,7 +34,6 @@ const SystemCredentailForm = ({
   };
 
   const renderMessage = () => {
-    console.log(operationCompleted);
     if (systemCredentialError) {
       return <Message error>Error Occured: {systemCredentialError}</Message>;
     } else if (operationCompleted) {
@@ -43,29 +44,29 @@ const SystemCredentailForm = ({
   return (
     <Container>
       {renderMessage()}
-      <Card fluid raised color="teal">
+      <Card fluid raised color='teal'>
         <Card.Content>
           <Card.Header>New System Credentail </Card.Header>
           <br />
-          <Form onSubmit={handleSubmit(createSystemCredential)}>
-            <Field component={Form.Input} label="User: " name="userId" placeholder="User " required />
+          <Form onSubmit={handleSubmit(createSystemCredential)} autoComplete='off'>
+            <Field component={Form.Input} label='User: ' name='userId' placeholder='User ' required />
             <Field
               component={Form.Input}
-              type="password"
-              label="Password: "
-              name="password"
-              placeholder="Password "
+              type='password'
+              label='Password: '
+              name='password'
+              placeholder='Password '
               required
             />
-            <Field component={Form.Input} label="System Name: " name="systemName" placeholder="System Name " required />
+            <Field component={Form.Input} label='System Name: ' name='systemName' placeholder='System Name ' required />
 
-            <Field component={TextAreaComponent} label="Description: " name="description" placeholder="Description" />
+            <Field component={TextAreaComponent} label='Description: ' name='description' placeholder='Description' />
 
-            <Form.Group textAlign="rigth">
-              <Form.Button primary size="large" color="teal" textAlign="right">
+            <Form.Group textAlign='rigth'>
+              <Form.Button primary size='large' color='teal' textAlign='right'>
                 Create
               </Form.Button>
-              <Form.Button primary size="large" color="google plus" textAlign="right" onClick={reset}>
+              <Form.Button primary size='large' color='google plus' textAlign='right' onClick={reset}>
                 Reset
               </Form.Button>
             </Form.Group>

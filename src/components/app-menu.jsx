@@ -13,16 +13,16 @@ const AppMenu = () => {
   };
 
   return (
-    <Menu color="brown" inverted size="large">
-      <Menu.Item name="search" active={activeItem === 'search'} onClick={handleItemClick}>
+    <Menu color='brown' size='large' pointing>
+      <Menu.Item name='search' active={activeItem === 'search'} onClick={handleItemClick}>
         Search Credential
       </Menu.Item>
 
-      <Menu.Item name="new" active={activeItem === 'new'} onClick={handleItemClick}>
+      <Menu.Item name='new' active={activeItem === 'new'} onClick={handleItemClick}>
         Add New Credential
       </Menu.Item>
 
-      <Menu.Item name="export" active={activeItem === 'export'} onClick={handleItemClick}>
+      <Menu.Item name='export' active={activeItem === 'export'} onClick={handleItemClick}>
         Export Credentials
       </Menu.Item>
     </Menu>

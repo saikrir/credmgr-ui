@@ -1,11 +1,21 @@
-import React from 'react';
 import { Container, Message } from 'semantic-ui-react';
 import AppSearchForm from '../components/app-search-form';
 import { connect } from 'react-redux';
-import { searchCredentials } from '../redux/actions/systemcredentials/system-credential-actions';
+import { searchCredentials, initialize } from '../redux/actions/systemcredentials/system-credential-actions';
 import SearchResults from '../components/search-results';
+import React, { useEffect } from 'react';
 
-const AppSearch = ({ search, systemCredentialSearches, credentailOperationSuccessful, systemCredentialError }) => {
+const AppSearch = ({
+  search,
+  systemCredentialSearches,
+  credentailOperationSuccessful,
+  systemCredentialError,
+  systemCredentialFormInit
+}) => {
+  useEffect(() => {
+    systemCredentialFormInit();
+  }, []);
+
   const searchResultsOrMessage = () => {
     if (credentailOperationSuccessful) {
       if (systemCredentialSearches && systemCredentialSearches.length > 0) {
@@ -35,7 +45,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    search: searchTerm => dispatch(searchCredentials(searchTerm))
+    search: searchTerm => dispatch(searchCredentials(searchTerm)),
+    systemCredentialFormInit: () => dispatch(initialize())
   };
 };
 

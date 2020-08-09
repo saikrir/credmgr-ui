@@ -2,6 +2,14 @@ import { API, ACTIONS, ENDPOINTS } from '../../../utils/app-constants';
 import TokenStore from '../../../utils/token-store';
 import axios from 'axios';
 
+export const initialize = () => {
+  return dispatch => {
+    dispatch({
+      type: ACTIONS.SYSTEM_CREDENTIAL_INITIALIZE
+    });
+  };
+};
+
 export const createSystemCredential = systemCredential => {
   return dispatch => {
     return new Promise((resolve, reject) => {

@@ -7,7 +7,7 @@ import SystemCredentailForm from '../containers/system-credential-form-container
 import AppSearch from '../containers/app-search';
 
 const PrivateHome = () => {
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   return (
     <Container fluid>
@@ -24,6 +24,9 @@ const PrivateHome = () => {
           <AppSearch />
         </Route>
         <Route exact path={`${path}/new`}>
+          <SystemCredentailForm />
+        </Route>
+        <Route exact path={`${path}/edit/:id`}>
           <SystemCredentailForm />
         </Route>
       </Switch>

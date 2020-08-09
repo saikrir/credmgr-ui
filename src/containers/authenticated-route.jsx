@@ -3,8 +3,6 @@ import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const AuthenticatedRoute = ({ children, authenticated, ...rest }) => {
-  console.log('children ? ', authenticated);
-
   if (!authenticated) {
     return <Redirect to={{ pathname: '/login' }} />;
   }
