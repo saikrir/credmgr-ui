@@ -5,6 +5,7 @@ import AppMenu from '../components/app-menu';
 import { Switch, useRouteMatch, Route } from 'react-router-dom';
 import SystemCredentailForm from '../containers/system-credential-form-container';
 import AppSearch from '../containers/app-search';
+import SystemCredentialEdit from '../containers/system-credential-edit';
 
 const PrivateHome = () => {
   let { path } = useRouteMatch();
@@ -27,7 +28,7 @@ const PrivateHome = () => {
           <SystemCredentailForm />
         </Route>
         <Route exact path={`${path}/edit/:id`}>
-          <SystemCredentailForm />
+          <SystemCredentialEdit />
         </Route>
       </Switch>
     </Container>

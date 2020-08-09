@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Message, Form, Container, Card, TextArea } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
+import { useParams } from 'react-router-dom';
 
 const TextAreaComponent = props => (
   <Form.Field>
@@ -14,10 +15,19 @@ const SystemCredentailForm = ({
   operationCompleted,
   systemCredentialError,
   reset,
-  systemCredentialFormInit
+  systemCredentialFormInit,
+  getSystemCredentialRecord,
+  updateSystemCredential,
+  editMode
 }) => {
+  let { id } = useParams();
+
   useEffect(() => {
     systemCredentialFormInit();
+
+    if (editMode && id) {
+      getSystemCredentialRecord(id);
+    }
   }, []);
 
   const createSystemCredential = ({ userId, password, systemName, description }) => {
@@ -27,9 +37,18 @@ const SystemCredentailForm = ({
       systemName,
       description
     };
-    saveSystemCredential(systemCredential).then(() => {
-      reset();
-    });
+    if (!editMode) {
+      saveSystemCredential(systemCredential).then(() => {
+        reset();
+      });
+    } else {
+      if (id) {
+        updateSystemCredential(id, systemCredential).then(() => {
+          reset();
+        });
+      }
+    }
+
     return false;
   };
 
@@ -37,7 +56,11 @@ const SystemCredentailForm = ({
     if (systemCredentialError) {
       return <Message error>Error Occured: {systemCredentialError}</Message>;
     } else if (operationCompleted) {
-      return <Message info>System Credential Created!</Message>;
+      if (editMode) {
+        return <Message info>System Credential Updated!</Message>;
+      } else {
+        return <Message info>System Credential Created!</Message>;
+      }
     }
   };
 
@@ -46,7 +69,7 @@ const SystemCredentailForm = ({
       {renderMessage()}
       <Card fluid raised color='teal'>
         <Card.Content>
-          <Card.Header>New System Credentail </Card.Header>
+          <Card.Header> System Credentail </Card.Header>
           <br />
           <Form onSubmit={handleSubmit(createSystemCredential)} autoComplete='off'>
             <Field component={Form.Input} label='User: ' name='userId' placeholder='User ' required />
@@ -64,10 +87,7 @@ const SystemCredentailForm = ({
 
             <Form.Group textAlign='rigth'>
               <Form.Button primary size='large' color='teal' textAlign='right'>
-                Create
-              </Form.Button>
-              <Form.Button primary size='large' color='google plus' textAlign='right' onClick={reset}>
-                Reset
+                {editMode ? 'Update' : 'Create'}
               </Form.Button>
             </Form.Group>
           </Form>
@@ -78,5 +98,6 @@ const SystemCredentailForm = ({
 };
 
 export default reduxForm({
-  form: 'systemCredentialForm'
+  form: 'systemCredentialForm',
+  enableReinitialize: true
 })(SystemCredentailForm);

@@ -18,5 +18,9 @@ export const ACTIONS = {
   SYSTEM_CREDENTIAL_CREATED: 'SystemCredentailCreated',
   SYSTEM_CREDENTIAL_ERROR: 'SystemCredentailError',
   SYSTEM_CREDNTIAL_SEARCH_RESULTS: 'SystemCredentialSearch',
-  SYSTEM_CREDNTIAL_SEARCH_RESULTS_ERROR: 'SystemCredentialSearchError'
+  SYSTEM_CREDNTIAL_SEARCH_RESULTS_ERROR: 'SystemCredentialSearchError',
+  SYSTEM_CREDNTIAL_FOUND_BY_ID: 'SystemCredentialFoundById',
+  SYSTEM_CREDNTIAL_FIND_BY_ID_ERROR: 'SystemCredentialFindByIdError',
+  SYSTEM_CREDNTIAL_DELETE: 'SystemCredentialDelete',
+  SYSTEM_CREDNTIAL_DELETE_ERROR: 'SystemCredentialDeleteError'
 };

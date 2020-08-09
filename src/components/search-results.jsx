@@ -2,11 +2,17 @@ import React from 'react';
 import { Container, Table, Reveal, Icon, Button } from 'semantic-ui-react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 
-const SearchResults = ({ searchResults }) => {
+const SearchResults = ({ searchResults, deleteHandler }) => {
   let history = useHistory();
 
   const handleEdit = (e, id) => {
     history.push(`edit/${id}`);
+  };
+
+  const handleDelete = (e, id) => {
+    if (id) {
+      deleteHandler(id);
+    }
   };
 
   const searchResultRow = searchResult => {
@@ -35,7 +41,14 @@ const SearchResults = ({ searchResults }) => {
             >
               Edit{' '}
             </Button>
-            <Button color='google plus'>Delete</Button>
+            <Button
+              color='google plus'
+              onClick={e => {
+                handleDelete(e, searchResult.id);
+              }}
+            >
+              Delete
+            </Button>
           </div>
         </Table.Cell>
       </Table.Row>

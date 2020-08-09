@@ -3,7 +3,8 @@ import { ACTIONS } from '../../../utils/app-constants';
 const INITIAL_STATE = {
   systemCredentialError: '',
   credentailOperationSuccessful: false,
-  systemCredentialSearches: []
+  systemCredentialSearches: [],
+  systemCredential: {}
 };
 
 const SystemCredentialReducer = (state = INITIAL_STATE, action) => {
@@ -38,6 +39,41 @@ const SystemCredentialReducer = (state = INITIAL_STATE, action) => {
         ...state,
         systemCredentialError: 'Insufficient Criteria',
         credentailOperationSuccessful: false,
+        systemCredentialSearches: []
+      };
+    }
+    case ACTIONS.SYSTEM_CREDNTIAL_FOUND_BY_ID: {
+      let systemCredential = action.payload;
+      return {
+        ...state,
+        systemCredentialError: '',
+        systemCredential
+      };
+    }
+    case ACTIONS.SYSTEM_CREDNTIAL_FIND_BY_ID_ERROR: {
+      return {
+        ...state,
+        systemCredentialError: 'Error Occured when fetching Record',
+        credentailOperationSuccessful: false,
+        systemCredential: {}
+      };
+    }
+
+    case ACTIONS.SYSTEM_CREDNTIAL_DELETE: {
+      return {
+        ...state,
+        credentailOperationSuccessful: true,
+        systemCredentialError: '',
+        systemCredential: {},
+        systemCredentialSearches: []
+      };
+    }
+    case ACTIONS.SYSTEM_CREDNTIAL_DELETE_ERROR: {
+      return {
+        ...state,
+        systemCredentialError: 'Error Occured when Deleting Record',
+        credentailOperationSuccessful: false,
+        systemCredential: {},
         systemCredentialSearches: []
       };
     }
