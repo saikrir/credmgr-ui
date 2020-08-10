@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Table, Reveal, Icon, Button } from 'semantic-ui-react';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const SearchResults = ({ searchResults, deleteHandler }) => {
   let history = useHistory();

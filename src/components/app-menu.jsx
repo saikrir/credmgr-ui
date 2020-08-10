@@ -7,6 +7,7 @@ const AppMenu = () => {
   let history = useHistory();
   let [activeItem, setActiveItem] = useState({});
   let { url } = useRouteMatch();
+
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
     history.push(`${url}/${name}`);

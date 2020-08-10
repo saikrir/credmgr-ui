@@ -22,5 +22,15 @@ export const ACTIONS = {
   SYSTEM_CREDNTIAL_FOUND_BY_ID: 'SystemCredentialFoundById',
   SYSTEM_CREDNTIAL_FIND_BY_ID_ERROR: 'SystemCredentialFindByIdError',
   SYSTEM_CREDNTIAL_DELETE: 'SystemCredentialDelete',
-  SYSTEM_CREDNTIAL_DELETE_ERROR: 'SystemCredentialDeleteError'
+  SYSTEM_CREDNTIAL_DELETE_ERROR: 'SystemCredentialDeleteError',
+  ADD_MESSAGES: 'AddMessages',
+  CLEAR_MESSAGES: 'ClearMessages'
+};
+
+export const MESSAGES = {
+  NETWORK_ERROR: 'Cannot connect to the server',
+  SYSTEM_CREDENTIAL_CREATED: 'System Crednetial has been created',
+  SYSTEM_CREDENTIAL_UPDATED: 'System Crednetial has been Updated',
+  SYSTEM_CREDENTIAL_DELETED: 'System Crednetial has been Deleted',
+  NO_SEARCH_RESULTS_FOUND: 'No Search results found'
 };

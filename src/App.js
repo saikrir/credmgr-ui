@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import LoginForm from './containers/login-container';
 import PrivateHome from './components/priv-home';
 import PublicHome from './components/pub-home';
-import AppSearch from './containers/app-search';
 import createStore from './redux/createStore';
 import AuthenticatedRoute from './containers/authenticated-route';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -15,13 +14,13 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <PublicHome />
           </Route>
-          <Route path="/login">
+          <Route path='/login'>
             <LoginForm />
           </Route>
-          <AuthenticatedRoute path="/private-home">
+          <AuthenticatedRoute path='/private-home'>
             <PrivateHome />
           </AuthenticatedRoute>
         </Switch>

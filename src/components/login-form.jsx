@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Message, Form, Container, Segment, Card } from 'semantic-ui-react';
+import { Form, Container, Segment, Card } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { useHistory } from 'react-router-dom';
 import '../app.css';
 import 'semantic-ui-css/semantic.min.css';
+import AppMessages from '../containers/app-messages';
 
 const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated }) => {
   useEffect(() => {
@@ -25,11 +26,7 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authError, authenticated })
       <Segment inverted textAlign='center' size='massive' color='brown'>
         <p>Credential Management System</p>
       </Segment>
-      {authError && (
-        <Message error>
-          <p>{authError}</p>
-        </Message>
-      )}
+      <AppMessages />
       <Card fluid raised color='brown'>
         <Card.Content>
           <Card.Header>Login</Card.Header>

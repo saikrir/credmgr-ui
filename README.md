@@ -20,16 +20,8 @@ VSCode Settings:
 "prettier.singleQuote": true,
 "prettier.withNodeModules": true
 
-applicationState: {
-auth: {
-loggedInUser: "",
-authenticated: false
-}
-
-search:{
-"searchTerm": "",
-"results": []
-},
-systemCredentialSingle: systemCredentials,
-form
-}
+leftToDo: [
+'Validations',
+'Header ReFormat',
+'Remove Redux Tools in Prod mode'
+]

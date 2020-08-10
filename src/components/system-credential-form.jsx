@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Message, Form, Container, Card, TextArea } from 'semantic-ui-react';
+import { Form, Container, Card, TextArea } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { useParams } from 'react-router-dom';
+import AppMessages from '../containers/app-messages';
 
 const TextAreaComponent = props => (
   <Form.Field>
@@ -12,8 +13,6 @@ const TextAreaComponent = props => (
 const SystemCredentailForm = ({
   handleSubmit,
   saveSystemCredential,
-  operationCompleted,
-  systemCredentialError,
   reset,
   systemCredentialFormInit,
   getSystemCredentialRecord,
@@ -52,21 +51,9 @@ const SystemCredentailForm = ({
     return false;
   };
 
-  const renderMessage = () => {
-    if (systemCredentialError) {
-      return <Message error>Error Occured: {systemCredentialError}</Message>;
-    } else if (operationCompleted) {
-      if (editMode) {
-        return <Message info>System Credential Updated!</Message>;
-      } else {
-        return <Message info>System Credential Created!</Message>;
-      }
-    }
-  };
-
   return (
     <Container>
-      {renderMessage()}
+      <AppMessages /> <br />
       <Card fluid raised color='teal'>
         <Card.Content>
           <Card.Header> System Credentail </Card.Header>
@@ -75,7 +62,7 @@ const SystemCredentailForm = ({
             <Field component={Form.Input} label='User: ' name='userId' placeholder='User ' required />
             <Field
               component={Form.Input}
-              type='password'
+              type={editMode ? 'input' : 'password'}
               label='Password: '
               name='password'
               placeholder='Password '

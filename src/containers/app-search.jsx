@@ -1,4 +1,4 @@
-import { Container, Message } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import AppSearchForm from '../components/app-search-form';
 import { connect } from 'react-redux';
 import {
@@ -8,45 +8,23 @@ import {
 } from '../redux/actions/systemcredentials/system-credential-actions';
 import SearchResults from '../components/search-results';
 import React, { useEffect } from 'react';
+import AppMessages from './app-messages';
 
-const AppSearch = ({
-  search,
-  systemCredentialSearches,
-  credentailOperationSuccessful,
-  systemCredentialError,
-  systemCredentialFormInit,
-  deleteCredential
-}) => {
+const AppSearch = ({ search, systemCredentialSearches = [], systemCredentialFormInit, deleteCredential }) => {
   useEffect(() => {
     systemCredentialFormInit();
   }, []);
 
-  const renderMessage = () => {
-    if (!credentailOperationSuccessful) {
-      return <Message error>Error Occured: {systemCredentialError}</Message>;
-    } else {
-      return <Message info>System Credential Deleted!</Message>;
-    }
-  };
-
-  const searchResultsOrMessage = () => {
-    if (credentailOperationSuccessful) {
-      if (systemCredentialSearches && systemCredentialSearches.length > 0) {
-        return <SearchResults searchResults={systemCredentialSearches} deleteHandler={deleteCredential} />;
-      } else {
-        return <Message error>No Search Results Found</Message>;
-      }
-    } else if (systemCredentialError) {
-      return <Message error>Error occured when performing search: {systemCredentialError}</Message>;
-    }
-  };
-
   return (
     <Container>
-      {renderMessage()}
+      <AppMessages /> <br />
       <AppSearchForm searchHandler={search} />
       <br />
-      <Container>{searchResultsOrMessage()}</Container>
+      <Container>
+        {systemCredentialSearches.length > 0 && (
+          <SearchResults searchResults={systemCredentialSearches} deleteHandler={deleteCredential} />
+        )}
+      </Container>
     </Container>
   );
 };

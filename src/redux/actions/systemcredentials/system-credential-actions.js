@@ -1,4 +1,5 @@
-import { API, ACTIONS, ENDPOINTS } from '../../../utils/app-constants';
+import { API, ACTIONS, ENDPOINTS, MESSAGES } from '../../../utils/app-constants';
+import { systemErrorTranslator, searchErrorTranslator } from '../../../utils/error-translator';
 import TokenStore from '../../../utils/token-store';
 import axios from 'axios';
 
@@ -7,6 +8,7 @@ export const initialize = () => {
     dispatch({
       type: ACTIONS.SYSTEM_CREDENTIAL_INITIALIZE
     });
+    clearMessages(dispatch);
   };
 };
 
@@ -26,13 +28,32 @@ export const createSystemCredential = systemCredential => {
 
         axiosInstance
           .post(createSystemCredentailEndpoint, systemCredential)
-          .then(response => {
+          .then(_ => {
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_CREATED
             });
+
+            dispatch({
+              type: ACTIONS.ADD_MESSAGES,
+              payload: [createInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_CREATED)]
+            });
+
             resolve();
           })
           .catch(err => {
+            let errorMessage = err.message;
+
+            if (!err.response) {
+              errorMessage = MESSAGES.NETWORK_ERROR;
+            } else if (err.response.status) {
+              errorMessage = systemErrorTranslator(err.response.status);
+            }
+
+            dispatch({
+              type: ACTIONS.ADD_MESSAGES,
+              payload: [createErrorMessage(errorMessage)]
+            });
+
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_ERROR
             });
@@ -59,13 +80,30 @@ export const updateSystemCredential = (id, systemCredential) => {
 
         axiosInstance
           .put(updateSystemCredentailEndpoint, systemCredential)
-          .then(response => {
+          .then(_ => {
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_CREATED
             });
+            dispatch({
+              type: ACTIONS.ADD_MESSAGES,
+              payload: [createInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_UPDATED)]
+            });
+
             resolve();
           })
           .catch(err => {
+            let errorMessage = err.message;
+            if (!err.response) {
+              errorMessage = MESSAGES.NETWORK_ERROR;
+            } else if (err.response.status) {
+              errorMessage = systemErrorTranslator(err.response.status);
+            }
+
+            dispatch({
+              type: ACTIONS.ADD_MESSAGES,
+              payload: [createErrorMessage(errorMessage)]
+            });
+
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_ERROR
             });
@@ -95,12 +133,31 @@ export const searchCredentials = searchTerm => {
         })
         .then(response => {
           let { data: searchResults } = response;
+
+          if (!searchResults || searchResults.length == 0) {
+            dispatch({
+              type: ACTIONS.ADD_MESSAGES,
+              payload: [createWarningMessage(MESSAGES.NO_SEARCH_RESULTS_FOUND)]
+            });
+          }
+
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS,
             payload: searchResults
           });
         })
-        .catch(error => {
+        .catch(err => {
+          let errorMessage = err.message;
+          if (!err.response) {
+            errorMessage = MESSAGES.NETWORK_ERROR;
+          } else if (err.response.status) {
+            errorMessage = searchErrorTranslator(err.response.status);
+          }
+
+          dispatch({
+            type: ACTIONS.ADD_MESSAGES,
+            payload: [createErrorMessage(errorMessage)]
+          });
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS_ERROR
           });
@@ -129,7 +186,19 @@ export const getSystemCredential = id => {
             payload: systemCredential
           });
         })
-        .catch(error => {
+        .catch(err => {
+          let errorMessage = err.message;
+          if (!err.response) {
+            errorMessage = MESSAGES.NETWORK_ERROR;
+          } else if (err.response.status) {
+            errorMessage = searchErrorTranslator(err.response.status);
+          }
+
+          dispatch({
+            type: ACTIONS.ADD_MESSAGES,
+            payload: [createErrorMessage(errorMessage)]
+          });
+
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_FIND_BY_ID_ERROR
           });
@@ -155,8 +224,24 @@ export const deleteSystemCredential = id => {
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_DELETE
           });
+          dispatch({
+            type: ACTIONS.ADD_MESSAGES,
+            payload: [createInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_DELETED)]
+          });
         })
-        .catch(error => {
+        .catch(err => {
+          let errorMessage = err.message;
+          if (!err.response) {
+            errorMessage = MESSAGES.NETWORK_ERROR;
+          } else if (err.response.status) {
+            errorMessage = systemErrorTranslator(err.response.status);
+          }
+
+          dispatch({
+            type: ACTIONS.ADD_MESSAGES,
+            payload: [createErrorMessage(errorMessage)]
+          });
+
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_DELETE_ERROR
           });
@@ -176,5 +261,32 @@ const getAuthEnabledAxios = jwtToken => {
 const getAuthHeader = jwtToken => {
   return {
     Authorization: `Bearer ${jwtToken}`
+  };
+};
+
+const clearMessages = dispatch => {
+  dispatch({
+    type: ACTIONS.CLEAR_MESSAGES
+  });
+};
+
+const createErrorMessage = errorText => {
+  return {
+    text: errorText,
+    severity: 'ERROR'
+  };
+};
+
+const createInfoMessage = infoMessage => {
+  return {
+    text: infoMessage,
+    severity: 'INFO'
+  };
+};
+
+const createWarningMessage = warningMessage => {
+  return {
+    text: warningMessage,
+    severity: 'WARN'
   };
 };
