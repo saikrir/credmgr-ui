@@ -14,17 +14,17 @@ const AppMenu = () => {
   };
 
   return (
-    <Menu color='brown' size='large' pointing>
-      <Menu.Item name='search' active={activeItem === 'search'} onClick={handleItemClick}>
+    <Menu color="brown" size="large" pointing>
+      <Menu.Item name="search" active={activeItem === 'search'} onClick={handleItemClick}>
         Search Credential
       </Menu.Item>
 
-      <Menu.Item name='new' active={activeItem === 'new'} onClick={handleItemClick}>
+      <Menu.Item name="new" active={activeItem === 'new'} onClick={handleItemClick}>
         Add New Credential
       </Menu.Item>
 
-      <Menu.Item name='export' active={activeItem === 'export'} onClick={handleItemClick}>
-        Export Credentials
+      <Menu.Item name="about" active={activeItem === 'about'} onClick={handleItemClick}>
+        About Credential Manager
       </Menu.Item>
     </Menu>
   );

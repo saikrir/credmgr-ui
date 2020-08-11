@@ -2,13 +2,14 @@ import { API, ACTIONS, ENDPOINTS, MESSAGES } from '../../../utils/app-constants'
 import { systemErrorTranslator, searchErrorTranslator } from '../../../utils/error-translator';
 import TokenStore from '../../../utils/token-store';
 import axios from 'axios';
+import { addInfoMessage, addWarningMessage, addErrorMessage, clearMessages } from '../messages/message.actions';
 
 export const initialize = () => {
   return dispatch => {
     dispatch({
       type: ACTIONS.SYSTEM_CREDENTIAL_INITIALIZE
     });
-    clearMessages(dispatch);
+    dispatch(clearMessages(dispatch));
   };
 };
 
@@ -32,12 +33,7 @@ export const createSystemCredential = systemCredential => {
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_CREATED
             });
-
-            dispatch({
-              type: ACTIONS.ADD_MESSAGES,
-              payload: [createInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_CREATED)]
-            });
-
+            dispatch(addInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_CREATED));
             resolve();
           })
           .catch(err => {
@@ -49,11 +45,7 @@ export const createSystemCredential = systemCredential => {
               errorMessage = systemErrorTranslator(err.response.status);
             }
 
-            dispatch({
-              type: ACTIONS.ADD_MESSAGES,
-              payload: [createErrorMessage(errorMessage)]
-            });
-
+            dispatch(addErrorMessage(errorMessage));
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_ERROR
             });
@@ -84,11 +76,7 @@ export const updateSystemCredential = (id, systemCredential) => {
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_CREATED
             });
-            dispatch({
-              type: ACTIONS.ADD_MESSAGES,
-              payload: [createInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_UPDATED)]
-            });
-
+            dispatch(addInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_UPDATED));
             resolve();
           })
           .catch(err => {
@@ -99,10 +87,7 @@ export const updateSystemCredential = (id, systemCredential) => {
               errorMessage = systemErrorTranslator(err.response.status);
             }
 
-            dispatch({
-              type: ACTIONS.ADD_MESSAGES,
-              payload: [createErrorMessage(errorMessage)]
-            });
+            dispatch(addErrorMessage(errorMessage));
 
             dispatch({
               type: ACTIONS.SYSTEM_CREDENTIAL_ERROR
@@ -125,6 +110,7 @@ export const searchCredentials = searchTerm => {
     } else {
       let searchSystemCredentailEndpoint = `${API.HOST}${API.CONTEXT_PATH}${ENDPOINTS.SYSTEM_CREDENTIAL}`;
       let axiosIntance = getAuthEnabledAxios(jwtToken);
+
       axiosIntance
         .get(searchSystemCredentailEndpoint, {
           params: {
@@ -133,12 +119,9 @@ export const searchCredentials = searchTerm => {
         })
         .then(response => {
           let { data: searchResults } = response;
-
-          if (!searchResults || searchResults.length == 0) {
-            dispatch({
-              type: ACTIONS.ADD_MESSAGES,
-              payload: [createWarningMessage(MESSAGES.NO_SEARCH_RESULTS_FOUND)]
-            });
+          dispatch(clearMessages());
+          if (!searchResults || searchResults.length === 0) {
+            dispatch(addWarningMessage(MESSAGES.NO_SEARCH_RESULTS_FOUND));
           }
 
           dispatch({
@@ -153,11 +136,8 @@ export const searchCredentials = searchTerm => {
           } else if (err.response.status) {
             errorMessage = searchErrorTranslator(err.response.status);
           }
+          dispatch(addErrorMessage(errorMessage));
 
-          dispatch({
-            type: ACTIONS.ADD_MESSAGES,
-            payload: [createErrorMessage(errorMessage)]
-          });
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_SEARCH_RESULTS_ERROR
           });
@@ -193,11 +173,7 @@ export const getSystemCredential = id => {
           } else if (err.response.status) {
             errorMessage = searchErrorTranslator(err.response.status);
           }
-
-          dispatch({
-            type: ACTIONS.ADD_MESSAGES,
-            payload: [createErrorMessage(errorMessage)]
-          });
+          dispatch(addErrorMessage(errorMessage));
 
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_FIND_BY_ID_ERROR
@@ -224,10 +200,7 @@ export const deleteSystemCredential = id => {
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_DELETE
           });
-          dispatch({
-            type: ACTIONS.ADD_MESSAGES,
-            payload: [createInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_DELETED)]
-          });
+          dispatch(addInfoMessage(MESSAGES.SYSTEM_CREDENTIAL_DELETED));
         })
         .catch(err => {
           let errorMessage = err.message;
@@ -236,12 +209,7 @@ export const deleteSystemCredential = id => {
           } else if (err.response.status) {
             errorMessage = systemErrorTranslator(err.response.status);
           }
-
-          dispatch({
-            type: ACTIONS.ADD_MESSAGES,
-            payload: [createErrorMessage(errorMessage)]
-          });
-
+          dispatch(addErrorMessage(errorMessage));
           dispatch({
             type: ACTIONS.SYSTEM_CREDNTIAL_DELETE_ERROR
           });
@@ -261,32 +229,5 @@ const getAuthEnabledAxios = jwtToken => {
 const getAuthHeader = jwtToken => {
   return {
     Authorization: `Bearer ${jwtToken}`
-  };
-};
-
-const clearMessages = dispatch => {
-  dispatch({
-    type: ACTIONS.CLEAR_MESSAGES
-  });
-};
-
-const createErrorMessage = errorText => {
-  return {
-    text: errorText,
-    severity: 'ERROR'
-  };
-};
-
-const createInfoMessage = infoMessage => {
-  return {
-    text: infoMessage,
-    severity: 'INFO'
-  };
-};
-
-const createWarningMessage = warningMessage => {
-  return {
-    text: warningMessage,
-    severity: 'WARN'
   };
 };

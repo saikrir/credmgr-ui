@@ -32,5 +32,6 @@ export const MESSAGES = {
   SYSTEM_CREDENTIAL_CREATED: 'System Crednetial has been created',
   SYSTEM_CREDENTIAL_UPDATED: 'System Crednetial has been Updated',
   SYSTEM_CREDENTIAL_DELETED: 'System Crednetial has been Deleted',
-  NO_SEARCH_RESULTS_FOUND: 'No Search results found'
+  NO_SEARCH_RESULTS_FOUND: 'No Search results found',
+  LOGGED_OUT: 'You have been logged out'
 };

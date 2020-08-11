@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API, ENDPOINTS, ACTIONS, MESSAGES } from '../../../utils/app-constants';
 import { authErrorTranslator } from '../../../utils/error-translator';
 import TokenStore from '../../../utils/token-store';
+import { addErrorMessage, clearMessages, addInfoMessage } from '../messages/message.actions';
 
 export const authenticate = (userName, password) => {
   return dispatch => {
@@ -21,9 +22,7 @@ export const authenticate = (userName, password) => {
           }
         });
 
-        dispatch({
-          type: ACTIONS.CLEAR_MESSAGES
-        });
+        dispatch(clearMessages());
       })
       .catch(err => {
         let errorMessage = err.message;
@@ -39,10 +38,7 @@ export const authenticate = (userName, password) => {
           type: ACTIONS.AUTHENTICATION_FAILED
         });
 
-        dispatch({
-          type: ACTIONS.ADD_MESSAGES,
-          payload: [createErrorMessage(errorMessage)]
-        });
+        dispatch(addErrorMessage(errorMessage));
       });
   };
 };
@@ -65,10 +61,7 @@ export const validateToken = () => {
               user: username
             }
           });
-
-          dispatch({
-            type: ACTIONS.CLEAR_MESSAGES
-          });
+          dispatch(clearMessages());
         })
         .catch(err => {
           let errorMessage = err.message;
@@ -83,10 +76,7 @@ export const validateToken = () => {
             payload: { error: errorMessage }
           });
 
-          dispatch({
-            type: ACTIONS.ADD_MESSAGES,
-            payload: [createErrorMessage(errorMessage)]
-          });
+          dispatch(addErrorMessage(errorMessage));
         });
     }
   };
@@ -98,16 +88,6 @@ export const doLogout = () => {
     dispatch({
       type: ACTIONS.USER_LOGOUT
     });
-
-    dispatch({
-      type: ACTIONS.CLEAR_MESSAGES
-    });
-  };
-};
-
-const createErrorMessage = errorText => {
-  return {
-    text: errorText,
-    severity: 'ERROR'
+    dispatch(addInfoMessage(MESSAGES.LOGGED_OUT));
   };
 };

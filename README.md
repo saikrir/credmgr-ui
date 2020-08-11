@@ -22,6 +22,6 @@ VSCode Settings:
 
 leftToDo: [
 'Validations',
-'Header ReFormat',
+'Add About page',
 'Remove Redux Tools in Prod mode'
 ]
