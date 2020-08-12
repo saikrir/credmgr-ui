@@ -1,10 +1,13 @@
 import React from 'react';
-import { Container, Segment, Grid, Header } from 'semantic-ui-react';
+import { Container, Segment, Grid, Header, GridRow, GridColumn } from 'semantic-ui-react';
+import { Switch, useRouteMatch, Route } from 'react-router-dom';
+
 import AppHeader from '../containers/app-header';
 import AppMenu from '../components/app-menu';
-import { Switch, useRouteMatch, Route } from 'react-router-dom';
-import SystemCredentailForm from '../containers/system-credential-form-container';
+import AppFooter from './app-footer';
+import AboutPage from './about-page';
 import AppSearch from '../containers/app-search';
+import SystemCredentailForm from '../containers/system-credential-form-container';
 import SystemCredentialEdit from '../containers/system-credential-edit';
 
 const HomeContent = () => {
@@ -37,25 +40,41 @@ const PrivateHome = () => {
 
   return (
     <Container fluid>
-      <Segment>
-        <AppHeader />
-        <AppMenu />
-      </Segment>
+      <Grid padded>
+        <Grid.Row>
+          <Grid.Column>
+            <AppHeader />
+            <AppMenu />
+          </Grid.Column>
+        </Grid.Row>
 
-      <Switch>
-        <Route exact path={path}>
-          <HomeContent />
-        </Route>
-        <Route exact path={`${path}/search`}>
-          <AppSearch />
-        </Route>
-        <Route exact path={`${path}/new`}>
-          <SystemCredentailForm />
-        </Route>
-        <Route exact path={`${path}/edit/:id`}>
-          <SystemCredentialEdit />
-        </Route>
-      </Switch>
+        <GridRow centered>
+          <GridColumn>
+            <Switch>
+              <Route exact path={path}>
+                <HomeContent />
+              </Route>
+              <Route exact path={`${path}/search`}>
+                <AppSearch />
+              </Route>
+              <Route exact path={`${path}/new`}>
+                <SystemCredentailForm />
+              </Route>
+              <Route exact path={`${path}/edit/:id`}>
+                <SystemCredentialEdit />
+              </Route>
+              <Route exact path={`${path}/about`}>
+                <AboutPage />
+              </Route>
+            </Switch>
+          </GridColumn>
+        </GridRow>
+        <GridRow color="brown" textAlign="center" verticalAlign="bottom">
+          <GridColumn>
+            <AppFooter />
+          </GridColumn>
+        </GridRow>
+      </Grid>
     </Container>
   );
 };

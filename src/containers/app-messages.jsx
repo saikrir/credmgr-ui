@@ -4,10 +4,15 @@ import { Container, Message } from 'semantic-ui-react';
 
 const AppMessages = ({ messages }) => {
   const renderMessages = () => {
-    return messages.map(({ text, severity = 'INFO' }) => {
-      if (severity === 'INFO') return <Message info> {text} </Message>;
-      else if (severity === 'WARN') return <Message warning> {text} </Message>;
-      else return <Message error> {text} </Message>;
+    return messages.map(({ text, severity = 'INFO' }, idx) => {
+      let inputProps = {
+        [severity.toLowerCase()]: true
+      };
+      return (
+        <Message {...inputProps} key={idx}>
+          {text}
+        </Message>
+      );
     });
   };
   return <Container>{renderMessages()}</Container>;

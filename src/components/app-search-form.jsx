@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Form, Container, Card } from 'semantic-ui-react';
-
+import FormButtons from './form-buttons';
 const AppSearchForm = ({ handleSubmit, searchHandler }) => {
   const systemSearch = values => {
     let searchTerm = values.systemName;
@@ -15,9 +15,7 @@ const AppSearchForm = ({ handleSubmit, searchHandler }) => {
           <Card.Header>Search Credentials </Card.Header> <br />
           <Form onSubmit={handleSubmit(systemSearch)} autoComplete="off">
             <Field component={Form.Input} label="Search: " name="systemName" placeholder="System Name " required />
-            <Form.Button primary size="large" color="brown" textAlign="right">
-              Search
-            </Form.Button>
+            <FormButtons />
           </Form>
         </Card.Content>
       </Card>

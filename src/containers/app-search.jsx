@@ -13,7 +13,7 @@ import AppMessages from './app-messages';
 const AppSearch = ({ search, systemCredentialSearches = [], systemCredentialFormInit, deleteCredential }) => {
   useEffect(() => {
     systemCredentialFormInit();
-  }, []);
+  }, [systemCredentialFormInit]);
 
   return (
     <Container>

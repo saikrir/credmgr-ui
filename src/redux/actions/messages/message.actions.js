@@ -61,6 +61,6 @@ const createInfoMessage = infoMessage => {
 const createWarningMessage = warningMessage => {
   return {
     text: warningMessage,
-    severity: 'WARN'
+    severity: 'WARNING'
   };
 };

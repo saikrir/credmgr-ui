@@ -3,6 +3,7 @@ import { Form, Container, Card, TextArea } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { useParams } from 'react-router-dom';
 import AppMessages from '../containers/app-messages';
+import FormButtons from './form-buttons';
 
 const TextAreaComponent = props => (
   <Form.Field>
@@ -27,7 +28,7 @@ const SystemCredentailForm = ({
     if (editMode && id) {
       getSystemCredentialRecord(id);
     }
-  }, []);
+  }, [id, editMode, systemCredentialFormInit, getSystemCredentialRecord]);
 
   const createSystemCredential = ({ userId, password, systemName, description }) => {
     let systemCredential = {
@@ -71,12 +72,7 @@ const SystemCredentailForm = ({
             />
 
             <Field component={TextAreaComponent} label="Description: " name="description" placeholder="Description" />
-
-            <Form.Group textAlign="rigth">
-              <Form.Button primary size="large" color="teal" textAlign="right">
-                {editMode ? 'Update' : 'Create'}
-              </Form.Button>
-            </Form.Group>
+            <FormButtons submitButtonTitle={editMode ? 'Update' : 'Create'} />
           </Form>
         </Card.Content>
       </Card>

@@ -21,7 +21,5 @@ VSCode Settings:
 "prettier.withNodeModules": true
 
 leftToDo: [
-'Validations',
-'Add About page',
-'Remove Redux Tools in Prod mode'
+'Validations'
 ]

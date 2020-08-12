@@ -9,7 +9,7 @@ const AppHeader = ({ loggedInUser, logout }) => {
   return (
     <Container fluid>
       <Grid inverted padded>
-        <Grid.Row color="brown" inverted>
+        <Grid.Row color="brown">
           <Grid.Column width={4}>
             <Link to="/private-home">
               <Icon name="user secret" size="huge" inverted corner />
@@ -23,7 +23,7 @@ const AppHeader = ({ loggedInUser, logout }) => {
               {dateStr}
             </Header>
           </Grid.Column>
-          <Grid.Column width={4} verticalAlign="center" textAlign="right">
+          <Grid.Column width={4} textAlign="right">
             <Button negative onClick={logout}>
               Logout {loggedInUser}
             </Button>
