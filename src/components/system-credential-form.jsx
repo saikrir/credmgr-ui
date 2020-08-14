@@ -55,23 +55,23 @@ const SystemCredentailForm = ({
   return (
     <Container>
       <AppMessages /> <br />
-      <Card fluid raised color="brown">
+      <Card fluid raised color='brown'>
         <Card.Content>
           <Card.Header> {editMode ? 'Update ' : 'Add  '}System Credentail </Card.Header>
           <br />
-          <Form onSubmit={handleSubmit(createSystemCredential)} autoComplete="off">
-            <Field component={Form.Input} label="System Name: " name="systemName" placeholder="System Name " required />
-            <Field component={Form.Input} label="User: " name="userId" placeholder="User " required />
+          <Form onSubmit={handleSubmit(createSystemCredential)} autoComplete='off'>
+            <Field component={Form.Input} label='System Name: ' name='systemName' placeholder='System Name ' required />
+            <Field component={Form.Input} label='User: ' name='userId' placeholder='User ' required />
             <Field
               component={Form.Input}
               type={editMode ? 'input' : 'password'}
-              label="Password: "
-              name="password"
-              placeholder="Password "
+              label='Password: '
+              name='password'
+              placeholder='Password '
               required
             />
 
-            <Field component={TextAreaComponent} label="Description: " name="description" placeholder="Description" />
+            <Field component={TextAreaComponent} label='Description: ' name='description' placeholder='Description' />
             <FormButtons submitButtonTitle={editMode ? 'Update' : 'Create'} />
           </Form>
         </Card.Content>
@@ -79,8 +79,13 @@ const SystemCredentailForm = ({
     </Container>
   );
 };
+const validate = values => {
+  console.log('Iwas called');
+  return {};
+};
 
 export default reduxForm({
   form: 'systemCredentialForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  validate
 })(SystemCredentailForm);
