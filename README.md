@@ -21,5 +21,5 @@ VSCode Settings:
 "prettier.withNodeModules": true
 
 leftToDo: [
-'Validations'
+"focus",
 ]

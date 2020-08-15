@@ -11,7 +11,9 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
 
   const handleDelete = (e, id) => {
     if (id) {
-      deleteHandler(id);
+      if (window.confirm('Are you sure you want to delete? ') === true) {
+        deleteHandler(id);
+      }
     }
   };
 
