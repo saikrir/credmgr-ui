@@ -10,7 +10,7 @@ const mapStateToProps = ({ auth }) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     doAuth: (userName, password) => dispatch(authenticate(userName, password)),
-    validate: () => dispatch(validateToken())
+    validateToken: () => dispatch(validateToken())
   };
 };
 

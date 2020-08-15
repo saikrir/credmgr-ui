@@ -3,31 +3,22 @@ import { reduxForm, Field } from 'redux-form';
 import { Form, Container, Card } from 'semantic-ui-react';
 import FormButtons from './form-buttons';
 import { searchValidator } from '../utils/form-validators';
+import CoreTextField from './core-ui/text-field';
 
-const AppSearchForm = ({ handleSubmit, searchHandler }) => {
+const AppSearchForm = ({ handleSubmit, searchHandler, valid }) => {
   const systemSearch = values => {
     let searchTerm = values.systemName;
     searchHandler(searchTerm);
   };
 
-  const renderInput = ({ input, label, meta }) => {
-    return (
-      <div className='field'>
-        <label>{label}</label>
-        <input {...input} />
-        <div>{meta.error}</div>
-      </div>
-    );
-  };
-
   return (
     <Container>
-      <Card fluid raised color='brown'>
+      <Card fluid raised color="brown">
         <Card.Content>
           <Card.Header>Search Credentials </Card.Header> <br />
-          <Form onSubmit={handleSubmit(systemSearch)} autoComplete='off'>
-            <Field component={renderInput} label='Search: ' name='systemName' placeholder='System Name ' required />
-            <FormButtons />
+          <Form onSubmit={handleSubmit(systemSearch)} autoComplete="off">
+            <Field component={CoreTextField} label="Search: " name="systemName" placeholder="System Name " required />
+            <FormButtons submitEnabled={valid} />
           </Form>
         </Card.Content>
       </Card>

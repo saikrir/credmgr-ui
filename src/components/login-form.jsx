@@ -5,11 +5,13 @@ import { Redirect } from 'react-router-dom';
 import '../app.css';
 import 'semantic-ui-css/semantic.min.css';
 import AppMessages from '../containers/app-messages';
+import { loginFormValidator } from '../utils/form-validators';
+import CoreTextField from './core-ui/text-field';
 
-const LoginForm = ({ handleSubmit, doAuth, validate, authenticated }) => {
+const LoginForm = ({ handleSubmit, doAuth, validateToken, authenticated, valid }) => {
   useEffect(() => {
-    validate();
-  }, [authenticated, validate]);
+    validateToken();
+  }, [authenticated, validateToken]);
 
   let handleAuth = values => {
     let { username, password } = values;
@@ -17,32 +19,30 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authenticated }) => {
   };
 
   let renderLoginOrRedirect = () => {
-    if (authenticated) return <Redirect to='/private-home' />;
+    if (authenticated) return <Redirect to="/private-home" />;
     else
       return (
         <Container>
-          <Segment inverted textAlign='center' size='massive' color='brown'>
+          <Segment inverted textAlign="center" size="massive" color="brown">
             <p>Credential Management System</p>
           </Segment>
           <AppMessages />
-          <Card fluid raised color='brown'>
+          <Card fluid raised color="brown">
             <Card.Content>
               <Card.Header>Login</Card.Header>
               <br />
-              <Form onSubmit={handleSubmit(handleAuth)} autoComplete='off'>
-                <Form.Group widths='equal' inline={false}>
-                  <Field component={Form.Input} label='User: ' name='username' placeholder='User ' required />
-                  <Field
-                    component={Form.Input}
-                    type='password'
-                    label='Password: '
-                    name='password'
-                    placeholder='Password '
-                    required
-                  />
-                </Form.Group>
+              <Form onSubmit={handleSubmit(handleAuth)} autoComplete="off">
+                <Field component={CoreTextField} label="User: " name="username" placeholder="User " required />
+                <Field
+                  component={CoreTextField}
+                  type="password"
+                  label="Password: "
+                  name="password"
+                  placeholder="Password "
+                  required
+                />
                 <Form.Group>
-                  <Form.Button primary size='large' color='brown'>
+                  <Form.Button primary size="large" color="brown" disabled={!valid}>
                     Login
                   </Form.Button>
                 </Form.Group>
@@ -55,11 +55,8 @@ const LoginForm = ({ handleSubmit, doAuth, validate, authenticated }) => {
 
   return <>{renderLoginOrRedirect()}</>;
 };
-const validate = values => {
-  return {};
-};
 
 export default reduxForm({
   form: 'loginForm',
-  validate
+  validate: loginFormValidator
 })(LoginForm);

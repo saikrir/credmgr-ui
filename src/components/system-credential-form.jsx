@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
-import { Form, Container, Card, TextArea } from 'semantic-ui-react';
+import { Form, Container, Card } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { useParams } from 'react-router-dom';
 import AppMessages from '../containers/app-messages';
 import FormButtons from './form-buttons';
-
-const TextAreaComponent = props => (
-  <Form.Field>
-    <TextArea {...props.input} value={props.input.value} placeholder={props.label} />
-  </Form.Field>
-);
+import CoreTextArea from './core-ui/text-area';
+import CoreTextField from './core-ui/text-field';
+import { systemCredentialValidator } from '../utils/form-validators';
 
 const SystemCredentailForm = ({
   handleSubmit,
@@ -18,7 +15,8 @@ const SystemCredentailForm = ({
   systemCredentialFormInit,
   getSystemCredentialRecord,
   updateSystemCredential,
-  editMode
+  editMode,
+  valid
 }) => {
   let { id } = useParams();
 
@@ -52,40 +50,46 @@ const SystemCredentailForm = ({
     return false;
   };
 
+  let typeProps = {};
+  if (!editMode) {
+    typeProps = { type: 'password' };
+  }
+
   return (
     <Container>
       <AppMessages /> <br />
-      <Card fluid raised color='brown'>
+      <Card fluid raised color="brown">
         <Card.Content>
           <Card.Header> {editMode ? 'Update ' : 'Add  '}System Credentail </Card.Header>
           <br />
-          <Form onSubmit={handleSubmit(createSystemCredential)} autoComplete='off'>
-            <Field component={Form.Input} label='System Name: ' name='systemName' placeholder='System Name ' required />
-            <Field component={Form.Input} label='User: ' name='userId' placeholder='User ' required />
+          <Form onSubmit={handleSubmit(createSystemCredential)} autoComplete="off">
             <Field
-              component={Form.Input}
-              type={editMode ? 'input' : 'password'}
-              label='Password: '
-              name='password'
-              placeholder='Password '
+              component={CoreTextField}
+              label="System Name: "
+              name="systemName"
+              placeholder="System Name "
               required
             />
-
-            <Field component={TextAreaComponent} label='Description: ' name='description' placeholder='Description' />
-            <FormButtons submitButtonTitle={editMode ? 'Update' : 'Create'} />
+            <Field component={CoreTextField} label="User: " name="userId" placeholder="User " required />
+            <Field
+              component={CoreTextField}
+              {...typeProps}
+              label="Password: "
+              name="password"
+              placeholder="Password "
+              required
+            />
+            <Field component={CoreTextArea} label="Description: " name="description" placeholder="Description" />
+            <FormButtons submitButtonTitle={editMode ? 'Update' : 'Create'} submitEnabled={valid} />
           </Form>
         </Card.Content>
       </Card>
     </Container>
   );
 };
-const validate = values => {
-  console.log('Iwas called');
-  return {};
-};
 
 export default reduxForm({
   form: 'systemCredentialForm',
   enableReinitialize: true,
-  validate
+  validate: systemCredentialValidator
 })(SystemCredentailForm);

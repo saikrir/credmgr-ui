@@ -2,11 +2,11 @@ import React from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
-const FormButtons = ({ submitButtonTitle = ' Search ' }) => {
+const FormButtons = ({ submitButtonTitle = ' Search ', submitEnabled = true }) => {
   const history = useHistory();
   return (
     <Form.Group>
-      <Form.Button primary size="large" color="brown">
+      <Form.Button primary size="large" color="brown" disabled={!submitEnabled}>
         {submitButtonTitle}
       </Form.Button>
       <Button
