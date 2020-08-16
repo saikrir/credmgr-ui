@@ -14,7 +14,7 @@ const AppMenu = () => {
   };
 
   return (
-    <Menu color="brown" size="large" pointing>
+    <Menu color="brown" size="small" pointing stackable>
       <Menu.Item name="search" active={activeItem === 'search'} onClick={handleItemClick}>
         Search Credential
       </Menu.Item>

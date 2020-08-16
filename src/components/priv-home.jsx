@@ -12,12 +12,12 @@ import SystemCredentialEdit from '../containers/system-credential-edit';
 
 const HomeContent = () => {
   return (
-    <Container textAlign='center'>
+    <Container textAlign="center">
       <Segment>
         <Grid columns={1} padded>
           <Grid.Row>
             <Grid.Column>
-              <Header as='h2'>Welcome to Credential Management System</Header>
+              <Header as="h2">Welcome to Credential Management System</Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -41,7 +41,7 @@ const PrivateHome = () => {
 
   return (
     <Container fluid>
-      <Grid padded>
+      <Grid padded stackable>
         <Grid.Row>
           <Grid.Column>
             <AppHeader />
@@ -70,7 +70,7 @@ const PrivateHome = () => {
             </Switch>
           </GridColumn>
         </GridRow>
-        <GridRow color='brown' textAlign='center' verticalAlign='bottom'>
+        <GridRow color="brown" textAlign="center" verticalAlign="bottom">
           <GridColumn>
             <AppFooter />
           </GridColumn>
