@@ -12,12 +12,12 @@ import SystemCredentialEdit from '../containers/system-credential-edit';
 
 const HomeContent = () => {
   return (
-    <Container textAlign="center">
+    <Container textAlign='center'>
       <Segment>
         <Grid columns={1} padded>
           <Grid.Row>
             <Grid.Column>
-              <Header as="h2">Welcome to Credential Management System</Header>
+              <Header as='h2'>Welcome to Credential Management System</Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -26,6 +26,7 @@ const HomeContent = () => {
                 This is a secure password management system, aimed to providing an easy to use interface to manage your
                 System credentials <br />
                 Please use the menu navigation to manage credentials
+                <div />
               </p>
             </Grid.Column>
           </Grid.Row>
@@ -69,7 +70,7 @@ const PrivateHome = () => {
             </Switch>
           </GridColumn>
         </GridRow>
-        <GridRow color="brown" textAlign="center" verticalAlign="bottom">
+        <GridRow color='brown' textAlign='center' verticalAlign='bottom'>
           <GridColumn>
             <AppFooter />
           </GridColumn>
