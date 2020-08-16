@@ -3,7 +3,7 @@
 deployTarget=build.tar.gz
 buildDir=build
 deployServer=skrao-app-server
-deployPath=~/Dev/apps
+deployPath=/home/skrao/Dev/apps
 
 echo "Starting UI Deployment Script"
 npm run build
