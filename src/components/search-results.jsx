@@ -81,7 +81,7 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
 
   return (
     <Container>
-      <Card.Group unstackable relaxed doubling itemsPerRow={2}>
+      <Card.Group stackable doubling itemsPerRow={3}>
         {searchResults.map(searchResult => searchResultRow(searchResult))}
       </Card.Group>
     </Container>
