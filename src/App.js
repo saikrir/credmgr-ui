@@ -5,7 +5,7 @@ import PrivateHome from './components/priv-home';
 import PublicHome from './components/pub-home';
 import createStore from './redux/createStore';
 import AuthenticatedRoute from './containers/authenticated-route';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import './app.css';
 
 const store = createStore();
@@ -13,7 +13,7 @@ const store = createStore();
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route exact path="/">
             <PublicHome />
@@ -25,7 +25,7 @@ const App = () => {
             <PrivateHome />
           </AuthenticatedRoute>
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 };
