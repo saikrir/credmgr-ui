@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Table, Button } from 'semantic-ui-react';
+import { Container, Button, Icon, Label, Segment, Card } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
 const SearchResults = ({ searchResults, deleteHandler }) => {
@@ -19,15 +19,45 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
 
   const searchResultRow = searchResult => {
     return (
-      <Table.Row key={searchResult.id}>
-        <Table.Cell>{searchResult.systemName}</Table.Cell>
-        <Table.Cell>{searchResult.userId}</Table.Cell>
-        <Table.Cell>{searchResult.password}</Table.Cell>
-        <Table.Cell>{searchResult.description}</Table.Cell>
-        <Table.Cell>
-          <div>
+      <Card>
+        <Card.Content>
+          <Card.Header>
+            <Segment raised>
+              <Label as="a" color="red" ribbon>
+                Name
+              </Label>
+              <span>{searchResult.systemName}</span>
+            </Segment>
+          </Card.Header>
+
+          <Card.Meta>
+            <br />
+            <Label as="a" color="blue" image>
+              <Icon name="user  circle" />
+              Username:
+              <Label.Detail>{searchResult.userId}</Label.Detail>
+            </Label>
+          </Card.Meta>
+
+          <Card.Description>
+            <Label as="a" color="blue" image>
+              <Icon name="key circle" />
+              Password:
+              <Label.Detail>{searchResult.password}</Label.Detail>
+            </Label>
+            <br />
+            <br />
+            <Card.Meta>
+              <div>{searchResult.description}</div>
+            </Card.Meta>
+          </Card.Description>
+        </Card.Content>
+
+        <Card.Content extra>
+          <div className="ui two buttons">
             <Button
-              primary
+              basic
+              color="green"
               onClick={e => {
                 handleEdit(e, searchResult.id);
               }}
@@ -35,7 +65,8 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
               Edit
             </Button>
             <Button
-              color="google plus"
+              basic
+              color="red"
               onClick={e => {
                 handleDelete(e, searchResult.id);
               }}
@@ -43,25 +74,16 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
               Delete
             </Button>
           </div>
-        </Table.Cell>
-      </Table.Row>
+        </Card.Content>
+      </Card>
     );
   };
 
   return (
     <Container>
-      <Table celled padded columns="5" textAlign="center" sortable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>System Name</Table.HeaderCell>
-            <Table.HeaderCell>User Id</Table.HeaderCell>
-            <Table.HeaderCell>Password </Table.HeaderCell>
-            <Table.HeaderCell>Description </Table.HeaderCell>
-            <Table.HeaderCell>Actions </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{searchResults.map(searchResult => searchResultRow(searchResult))}</Table.Body>
-      </Table>
+      <Card.Group unstackable relaxed doubling itemsPerRow={3}>
+        {searchResults.map(searchResult => searchResultRow(searchResult))}
+      </Card.Group>
     </Container>
   );
 };

@@ -35,15 +35,9 @@ export const systemCredentialValidator = ({ userId, password, systemName, descri
   if (!hasMinlength(systemName, 3)) {
     errors.systemName = 'Please enter atleast 3 characters for System Name';
   }
-  if (!hasAlphanumeric(systemName)) {
-    errors.systemName = 'Please enter only letters or numbers for System Name';
-  }
 
   if (!hasMinlength(userId, 3)) {
     errors.userId = 'Please enter atleast 3 characters for userId';
-  }
-  if (!hasAlphanumeric(userId)) {
-    errors.userId = 'Please enter only letters or numbers for userId';
   }
 
   if (!hasMinlength(password, 6)) {
