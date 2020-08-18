@@ -20,7 +20,7 @@ const AppHeader = ({ loggedInUser, logout }) => {
               Credential Management System
             </Header>
             <Header as="h4" inverted>
-              {dateStr}
+              {dateStr} - ({process.env.NODE_ENV} Mode)
             </Header>
           </Grid.Column>
           <Grid.Column width={4} textAlign="right">

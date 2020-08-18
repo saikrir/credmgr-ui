@@ -24,7 +24,7 @@ const LoginForm = ({ handleSubmit, doAuth, validateToken, authenticated, valid }
       return (
         <Container>
           <Segment inverted textAlign="center" size="massive" color="brown">
-            <p>Credential Management System</p>
+            <p>Credential Management System ({process.env.NODE_ENV} Mode)</p>
           </Segment>
           <AppMessages />
           <Card fluid raised color="brown">
