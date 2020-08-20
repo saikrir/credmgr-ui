@@ -22,8 +22,9 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
   const copyText = (e, copyText) => {
     if (!navigator.clipboard) {
       alert('Clipboard support not available');
+    } else {
+      navigator.clipboard.writeText(copyText);
     }
-    navigator.clipboard.writeText(copyText);
   };
 
   const togglePasswordDisplay = () => {
