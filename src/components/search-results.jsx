@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Button, Icon, Label, Segment, Card } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
-import { useRef } from 'react';
 
 const SearchResults = ({ searchResults, deleteHandler }) => {
   let history = useHistory();
@@ -20,10 +19,10 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
   };
 
   const copyText = (e, copyText) => {
-    if (!navigator.clipboard) {
+    if (!window.navigator.clipboard) {
       alert('Clipboard support not available');
     } else {
-      navigator.clipboard.writeText(copyText);
+      window.navigator.clipboard.writeText(copyText);
     }
   };
 
