@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Button, Icon, Label, Segment, Card } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
+import { useRef } from 'react';
 
 const SearchResults = ({ searchResults, deleteHandler }) => {
   let history = useHistory();
+  let [showPassword, setShowPassword] = useState(false);
 
   const handleEdit = (e, id) => {
     history.push(`edit/${id}`);
@@ -15,6 +17,17 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
         deleteHandler(id);
       }
     }
+  };
+
+  const copyText = (e, copyText) => {
+    if (!navigator.clipboard) {
+      alert('Clipboard support not available');
+    }
+    navigator.clipboard.writeText(copyText);
+  };
+
+  const togglePasswordDisplay = () => {
+    setShowPassword(!showPassword);
   };
 
   const searchResultRow = searchResult => {
@@ -30,7 +43,7 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
             </Segment>
           </Card.Header>
 
-          <Card.Meta>
+          <Card.Meta textAlign="center">
             <br />
             <Label as="a" color="blue" image>
               <Icon name="user  circle" />
@@ -39,12 +52,31 @@ const SearchResults = ({ searchResults, deleteHandler }) => {
             </Label>
           </Card.Meta>
 
-          <Card.Description>
+          <Card.Description textAlign="center">
             <Label as="a" color="blue" image>
               <Icon name="key circle" />
               Password:
-              <Label.Detail>{searchResult.password}</Label.Detail>
+              <Label.Detail>{showPassword ? searchResult.password : '********'}</Label.Detail>
             </Label>
+            <br />
+            <br />
+            <Button circular size="tiny" color="blue" compact onClick={togglePasswordDisplay}>
+              {showPassword ? <Icon name="eye slash" /> : <Icon name="eye" />}
+              {showPassword ? 'Hide' : 'Show'}
+            </Button>
+            &nbsp;
+            <Button
+              circular
+              size="tiny"
+              color="green"
+              compact
+              onClick={e => {
+                copyText(e, searchResult.password);
+              }}
+            >
+              <Icon name="copy" />
+              Copy
+            </Button>
             <br />
             <br />
             <Card.Meta>
