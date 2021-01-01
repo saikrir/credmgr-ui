@@ -40,12 +40,12 @@ export const systemCredentialValidator = ({ userId, password, systemName, descri
     errors.userId = 'Please enter atleast 3 characters for userId';
   }
 
-  if (!hasMinlength(password, 6)) {
-    errors.password = 'Please enter atleast 6 characters for Password';
+  if (!hasMinlength(password, 3)) {
+    errors.password = 'Please enter atleast 3 characters for Password';
   }
 
-  if (!hasMinlength(description, 5)) {
-    errors.description = 'Please enter atleast 5 characters for userId';
+  if (!hasMinlength(description, 4)) {
+    errors.description = 'Please enter atleast 4 characters for userId';
   }
 
   return errors;
@@ -57,5 +57,5 @@ const hasAlphanumeric = inputValue => {
 };
 
 const hasMinlength = (inputValue, minLength) => {
-  return inputValue && inputValue.length > minLength;
+  return inputValue && inputValue.length >= minLength;
 };
