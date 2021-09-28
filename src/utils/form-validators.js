@@ -22,9 +22,6 @@ export const searchValidator = ({ systemName }) => {
   if (!hasMinlength(systemName, 3)) {
     errors.systemName = 'Please enter atleast 3 characters to search';
   }
-  if (!hasAlphanumeric(systemName)) {
-    errors.systemName = 'Please enter only letters or numbers';
-  }
 
   return errors;
 };
